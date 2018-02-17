@@ -11,12 +11,13 @@
   http = require("http");
 
   WebSocket = require('ws');
-
   WebSocketServer = WebSocket.Server;
 
   parseArgs = require("minimist");
 
   Encryptor = require("./encrypt").Encryptor;
+  
+ var util = require('util')
 
   options = {
     alias: {
@@ -79,7 +80,13 @@
     res.writeHead(200, {
       'Content-Type': 'text/plain'
     });
-    return res.end("asdf.");
+	res.write(util.inspect(process.version)+"\n")
+	res.write(util.inspect(process.platform)+"\n")
+	res.write(util.inspect(process.arch)+"\n")
+	res.write(util.inspect(process.versions)+"\n")
+	res.write(util.inspect(process.release)+"\n")
+	res.write(util.inspect(process.config)+"\n")
+	return res.end("");
   });
 
   wss = new WebSocketServer({
